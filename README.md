@@ -1,1 +1,8 @@
-# TPW_236605_236710
+# Concurrent programming
+
+## Working Group
+
+| Name Surname (initials) | GUID                                     |
+| ----------------------- | ---------------------------------------- |
+| Bartosz Miszczak        | `` |
+| Bartosz Zuchora         | `` |
