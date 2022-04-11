@@ -23,8 +23,6 @@
             plansza.DodajKuleNaPlansze(kula);
             plansza.DodajKuleNaPlansze(kula2);
             plansza.WyswietlKule();
-            
-
         }
     }
 }

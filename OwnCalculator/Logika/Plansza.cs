@@ -35,6 +35,7 @@ namespace Logika
                 Console.Write(" "+_kule[i].X);
                 Console.Write(" "+_kule[i].Y);
                 Console.Write(" "+_kule[i].Radius);
+                
             }
         }
 

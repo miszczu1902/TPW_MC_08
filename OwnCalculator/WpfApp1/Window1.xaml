@@ -7,15 +7,25 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="TPW" Height="600" Width="600">
-    <Grid Margin="0,0,400,15">
+    <Grid Margin="-96,10,390,-1">
 
+        <Ellipse
+            Width="20"
+            Height="20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="Blue"
+            Canvas.Left="10"
+            Canvas.Top="25" Margin="250,200,0,0" RenderTransformOrigin="5.855,1.26" />
 
         <Rectangle
     Width="400"
     Height="400"
     Stroke="black"
-    Margin="10,13,-387,61"
+    Margin="122,88,-216,87"
  />
+
+
         <Button Margin="197,493,-200,9" RenderTransformOrigin="0.514,-0.401" Click="Button_Click" Content="Zakończ"/>
     </Grid>
 </Window>
