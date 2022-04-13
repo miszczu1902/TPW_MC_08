@@ -15,7 +15,6 @@ namespace Logic
 
         public Ball()
         {
-           
         }
 
         public Ball(int r)
@@ -27,6 +26,12 @@ namespace Logic
         public Ball(int r, int x, int y)
         {
             _radius = r;
+            _x = x;
+            _y = y;
+        }
+
+        public Ball(int x, int y)
+        {
             _x = x;
             _y = y;
         }
@@ -48,6 +53,5 @@ namespace Logic
             get => _y;
             set => _y = value;
         }
-
     }
 }

@@ -28,8 +28,14 @@ namespace Logic
 
         public void GenerateXY()
         {
-            this.X = generator.Next(1,101);
-            this.Y = generator.Next(1,101);
+            this.X = generator.Next(1, 101);
+            this.Y = generator.Next(1, 101);
+        }
+
+        public Ball GenerateBall()
+        {
+            GenerateXY();
+            return new Ball(X, Y);
         }
     }
 }

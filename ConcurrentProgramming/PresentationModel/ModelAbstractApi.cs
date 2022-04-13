@@ -10,18 +10,21 @@
 
 namespace TP.ConcurrentProgramming.PresentationModel
 {
-  public abstract class ModelAbstractApi
-  {
-    public abstract int Radius { get; }
-
-    public static ModelAbstractApi CreateApi()
+    public abstract class ModelAbstractApi
     {
-      return new ModelApi();
-    }
-  }
+        public abstract int Radius { get; }
 
-  internal class ModelApi : ModelAbstractApi
-  {
-    public override int Radius => 100;
-  }
+        public abstract int Content { get; }
+
+        public static ModelAbstractApi CreateApi()
+        {
+            return new ModelApi();
+        }
+    }
+
+    internal class ModelApi : ModelAbstractApi
+    {
+        public override int Radius => 100;
+        public override int Content => 10;
+    }
 }

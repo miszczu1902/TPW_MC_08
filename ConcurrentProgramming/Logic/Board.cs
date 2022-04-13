@@ -9,7 +9,8 @@ namespace Logic
     public class Board
     {
         private int _a = 400;
-        private List<Ball> _balls = new List<Ball>(); 
+        private List<Ball> _balls = new List<Ball>();
+        private Generator _generator = new Generator();
 
         public Board() { }
 
@@ -35,7 +36,15 @@ namespace Logic
                 Console.Write(" "+_balls[i].X);
                 Console.Write(" "+_balls[i].Y);
                 Console.Write(" "+_balls[i].Radius);
-                
+            }
+        }
+
+        public void AddBallsOnBoard(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Ball ball = _generator.GenerateBall();
+                _balls.Add(ball);
             }
         }
 
