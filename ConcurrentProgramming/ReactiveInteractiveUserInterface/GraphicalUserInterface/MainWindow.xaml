@@ -3,54 +3,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         ResizeMode="NoResize"
         xmlns:vm="clr-namespace:TP.ConcurrentProgramming.PresentationViewModel;assembly=TP.ConcurrentProgramming.PresentationViewModel"
         mc:Ignorable="d"
-        Title="Presentation layer targeting reactive/interactive behaviour" Height="auto" Width="auto">
+        Title="TPW" Height="151" Width="264">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
-        
-    <Canvas Width="900" Height="600">
-        <!-- Draws an oval with a blue interior. -->
-        <Ellipse Name="Elipse1" Width= "{ Binding Radious }" Height="50" Fill="Blue" Canvas.Left="400" Canvas.Top="250" Opacity="1">
-            <Ellipse.Triggers>
-                <EventTrigger RoutedEvent="Ellipse.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                Storyboard.TargetName="Elipse1"
-                                Storyboard.TargetProperty="Height"
-                                From="10.0"
-                                To="250.0"
-                                Duration="0:0:5"
-                                AutoReverse="True"
-                                RepeatBehavior="Forever" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Ellipse.Triggers>
-        </Ellipse>
 
-        <!-- Draws an oval with a blue interior and a black outline. -->
-        <Ellipse Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="4" Canvas.Left="400" Canvas.Top="100">
-        </Ellipse>
 
-        <!-- Draws a circle with a blue interior. -->
-        <Ellipse Width="50" Height="50" Fill="Yellow" Canvas.Left="135" Canvas.Top="250" />
 
-        <!-- Draws a circle with a blue interior and a black outline. -->
-        <Ellipse Width="50" Height="50" Stroke="Black" StrokeThickness="4" Canvas.Left="135" Canvas.Top="100" />
-        <Button Canvas.Left="100" Canvas.Top="300">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Ellipse Width="70" Height="70" Fill="Azure" ></Ellipse>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-    </Canvas>
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Press me" MinHeight="100" MinWidth="500" Command= "{Binding ButtomClick}"/>
-        </StackPanel>
-    </StackPanel>
+    <Grid Margin="0,0,0,5">
+
+        <Button Content="Rozpocznij" HorizontalAlignment="Left" Margin="141,71,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,33,0,0" TextWrapping="Wrap" Text="Wprowadź ilość kul: " VerticalAlignment="Top" RenderTransformOrigin="-0.476,-3.343"/>
+        <Button Name="Number" Style="{DynamicResource ButtonStyle1}" Content="0" HorizontalAlignment="Left" Margin="165,31,0,0" VerticalAlignment="Top"/>
+        <Button Name="plus" Content="+" HorizontalAlignment="Left" Margin="195,31,0,0" VerticalAlignment="Top" Width="14" Click="plus_Click"/>
+        <Button Name="minus" Content="-" HorizontalAlignment="Left" Margin="135,31,0,0" VerticalAlignment="Top" Click="minus_click"/>
+
+    </Grid>
 </Window>
