@@ -64,7 +64,12 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
 
     private void ClickHandler()
     {
-      // do something usefull
+      this.Close();
+    }
+
+    private void Close()
+    {
+      throw new System.NotImplementedException();
     }
 
     #endregion public API

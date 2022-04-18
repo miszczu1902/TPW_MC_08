@@ -32,6 +32,7 @@ namespace Logic
             this.Y = generator.Next(1, 101);
         }
 
+
         public Ball GenerateBall()
         {
             GenerateXY();

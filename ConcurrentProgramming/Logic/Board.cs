@@ -9,8 +9,8 @@ namespace Logic
 {
     public class Board
     {
-        public static int WIDTH = 400;
-        public static int HEIGHT = 500;
+        public static int WIDTH = 720;
+        public static int HEIGHT = 360;
 
         private List<Ball> _balls = new List<Ball>();
         private Generator _generator = new Generator();
@@ -49,16 +49,21 @@ namespace Logic
 
         public void CreateBalls()
         {
+            System.Random random = new System.Random();
+
             for (int i = 0; i < 5; i++)
             {
                 Ball ball = new Ball();
                 _generator.GenerateXY();
-                ball.Velocity = new Vector2(50 - _generator.Y * 100,
-                    50 - _generator.X * 100);
-                ball.Coordinates = new Vector2(_generator.X, _generator.Y);
+                ball.Velocity = new Vector2((float) random.NextDouble() ,
+                    (float) random.NextDouble() );        
+                // ball.Velocity = new Vector2(50 - (float) random.NextDouble() * 100,
+                //  50 - (float) random.NextDouble() * 100);
+                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 _balls.Add(ball);
             }
         }
+
 
         public List<Ball> Balls
         {

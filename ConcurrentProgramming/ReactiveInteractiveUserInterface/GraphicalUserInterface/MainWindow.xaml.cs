@@ -13,28 +13,6 @@ namespace TP.ConcurrentProgramming.PresentationView
         {
             InitializeComponent();
         }
-    
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        Window1 wind = new Window1();
-        wind.Show();
-        this.Close();
-    }
-
-     public void plus_Click(object sender, RoutedEventArgs e)
-    {
-        int i = Convert.ToInt32(Number.Content);
-        Number.Content = i + 1;
-    }
-    
-     public void minus_click(object sender, RoutedEventArgs e)
-    {
-        int i = Convert.ToInt32(Number.Content);
-    
-        if (i > 0)
-        {
-            Number.Content = i - 1;
-        }
-    }
+        
 }
 }

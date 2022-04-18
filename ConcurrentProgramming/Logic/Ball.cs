@@ -10,7 +10,7 @@ namespace Logic
 {
     public class Ball
     {
-        private double _radius = 2;
+        private double _radius = 50;
         private int _x = 0;
         private int _y = 0;
 
@@ -63,17 +63,22 @@ namespace Logic
 
         public Vector2 Velocity
         {
-            get => _velocity;
-            set => _velocity = value;
+            get ;
+            set ;
         }
 
         public void UpdatePostion(long currentTime)
         {
-
+            //Console.WriteLine(Velocity);
+            //Console.WriteLine(currentTime);
+            
             Coordinates += Velocity * currentTime;
+            
 
-            // if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH - _radius) Velocity *= -Vector2.UnitX;
-            //             if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY;
+
+            if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH - _radius) Velocity *= -Vector2.UnitX;
+            if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY; 
+            
         }
     }
 }
