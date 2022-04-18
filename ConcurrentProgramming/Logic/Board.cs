@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,15 +9,14 @@ namespace Logic
 {
     public class Board
     {
-        private int _a = 400;
+        public static int WIDTH = 400;
+        public static int HEIGHT = 500;
+
         private List<Ball> _balls = new List<Ball>();
         private Generator _generator = new Generator();
 
-        public Board() { }
-
-        public int A
+        public Board()
         {
-            get => _a;
         }
 
         public void AddBallToBoard(Ball ball)
@@ -31,11 +31,10 @@ namespace Logic
 
         public void ShowBalls()
         {
-            for (int i = 0; i < _balls.Count; i++)
+            foreach (var ball in _balls)
             {
-                Console.Write(" "+_balls[i].X);
-                Console.Write(" "+_balls[i].Y);
-                Console.Write(" "+_balls[i].Radius);
+                Console.Write(" " + ball.Radius);
+                Console.WriteLine(ball.Coordinates);
             }
         }
 
@@ -48,5 +47,23 @@ namespace Logic
             }
         }
 
+        public void CreateBalls()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Ball ball = new Ball();
+                _generator.GenerateXY();
+                ball.Velocity = new Vector2(50 - _generator.Y * 100,
+                    50 - _generator.X * 100);
+                ball.Coordinates = new Vector2(_generator.X, _generator.Y);
+                _balls.Add(ball);
+            }
+        }
+
+        public List<Ball> Balls
+        {
+            get => _balls;
+            set => _balls = value ?? throw new ArgumentNullException(nameof(value));
+        }
     }
 }
