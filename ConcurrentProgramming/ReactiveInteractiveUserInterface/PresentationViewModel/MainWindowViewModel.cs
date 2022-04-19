@@ -29,6 +29,7 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
       ModelLayer = modelAbstractApi;
       Radious = ModelLayer.Radius;
       ButtomClick = new RelayCommand(() => ClickHandler());
+      Content = ModelLayer.Content;
     }
 
     public IList<object> CirclesCollection
@@ -59,6 +60,21 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
         RaisePropertyChanged("Radious");
       }
     }
+    
+    public int Content
+    {
+      get
+      {
+        return b_Content;
+      }
+      set
+      {
+        if (value.Equals(b_Content))
+          return;
+        b_Content = value;
+        RaisePropertyChanged("Content");
+      }
+    }
 
     public ICommand ButtomClick { get; set; }
 
@@ -79,6 +95,7 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
     private IList<object> b_CirclesCollection;
     private int b_Radious;
     private ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
+    private int b_Content;
 
     #endregion private
 

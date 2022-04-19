@@ -11,13 +11,14 @@ namespace Logic
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
-
         private List<Ball> _balls = new List<Ball>();
         private Generator _generator = new Generator();
+        private List<Task> _tasks = new List<Task>();
 
         public Board()
         {
         }
+
 
         public void AddBallToBoard(Ball ball)
         {
@@ -38,6 +39,12 @@ namespace Logic
             }
         }
 
+        public List<Ball> Balls
+        {
+            get => _balls;
+            set => _balls = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
         public void AddBallsOnBoard(int count)
         {
             for (int i = 0; i < count; i++)
@@ -47,11 +54,11 @@ namespace Logic
             }
         }
 
-        public void CreateBalls()
+        public void CreateBalls(int countBalls)
         {
             System.Random random = new System.Random();
-             
-            for (int i = 0; i < 5; i++)
+
+            for (int i = 0; i < countBalls; i++)
             {
                 Ball ball = new Ball();
                 _generator.GenerateXY();
@@ -63,11 +70,26 @@ namespace Logic
             }
         }
 
-
-        public List<Ball> Balls
+        public void StartBalls()
         {
-            get => _balls;
-            set => _balls = value ?? throw new ArgumentNullException(nameof(value));
+            foreach (var ball in _balls)
+            {
+                Task task = Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        Console.WriteLine(ball);
+                        ball.UpdatePostion(DateTime.Now.Second);
+                        ShowBalls();
+                    }
+                });
+                _tasks.Add(task);
+                //task.Start();
+            }
+
+            Task.WaitAll(_tasks.ToArray());
+            foreach (Task t in _tasks)
+                Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
         }
     }
 }
