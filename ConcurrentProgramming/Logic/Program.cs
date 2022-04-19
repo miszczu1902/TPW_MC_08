@@ -29,16 +29,20 @@ namespace Logic
             Board board2 = new Board();
             board2.CreateBalls();
             board2.ShowBalls();
+            
             Console.WriteLine("a");
             System.Random random = new System.Random();
             List<Ball> ballsy = board2.Balls.GetRange(0, board2.Balls.Count - 1);
+            //ballsy[0].Velocity = new Vector2((float) 0.1, (float) 0.2);
             // ballsy[0].Velocity=new Vector2(50 + (float) random.NextDouble() * 100,
+            
             //      50 + (float) random.NextDouble() * 100);
             // ball.Velocity = new Vector2(50 - (float) random.NextDouble() * 100,
             //     50 - (float) random.NextDouble() * 100);
             //Console.WriteLine(ballsy[0].Coordinates);
             while (true)
             {
+                //long time = DateTime.Now.Second;
                 long time = DateTime.Now.Second;
                  
                  

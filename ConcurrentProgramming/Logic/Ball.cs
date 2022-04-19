@@ -10,11 +10,12 @@ namespace Logic
 {
     public class Ball
     {
-        private double _radius = 50;
+        private double _radius = 25;
         private int _x = 0;
         private int _y = 0;
 
         private Vector2 _velocity;
+        
         // private long _gameTime = DateTime.Now.Millisecond;
 
 
@@ -65,19 +66,26 @@ namespace Logic
         {
             get ;
             set ;
+           
         }
 
         public void UpdatePostion(long currentTime)
         {
-            //Console.WriteLine(Velocity);
+            
+            if(Velocity==Vector2.Zero){
+               System.Random random = new System.Random();
+           Velocity = new Vector2((float) random.NextDouble(), (float) random.NextDouble());
+            }
+           // Console.WriteLine(Velocity);
             //Console.WriteLine(currentTime);
             
             Coordinates += Velocity * currentTime;
+            //Console.WriteLine(Coordinates.X);
+            //Console.WriteLine("a");
             
-
-
+            //Console.WriteLine(Coordinates.Y);
             if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH - _radius) Velocity *= -Vector2.UnitX;
-            if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY; 
+             if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY; 
             
         }
     }

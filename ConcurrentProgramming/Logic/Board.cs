@@ -50,13 +50,12 @@ namespace Logic
         public void CreateBalls()
         {
             System.Random random = new System.Random();
-
+             
             for (int i = 0; i < 5; i++)
             {
                 Ball ball = new Ball();
                 _generator.GenerateXY();
-                ball.Velocity = new Vector2((float) random.NextDouble() ,
-                    (float) random.NextDouble() );        
+                ball.Velocity = Vector2.Zero;
                 // ball.Velocity = new Vector2(50 - (float) random.NextDouble() * 100,
                 //  50 - (float) random.NextDouble() * 100);
                 ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
