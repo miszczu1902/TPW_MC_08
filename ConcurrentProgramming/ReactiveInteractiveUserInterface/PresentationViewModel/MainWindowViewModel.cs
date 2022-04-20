@@ -22,6 +22,7 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
             ModelLayer = modelAbstractApi;
             Radious = ModelLayer.Radius;
             ButtomClick = new RelayCommand(() => ClickHandler());
+            Coords = ModelLayer.Coordinates(_AmountOfBalls);
         }
 
         public int Radious

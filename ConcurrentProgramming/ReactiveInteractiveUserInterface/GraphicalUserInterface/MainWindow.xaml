@@ -20,8 +20,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding Coords}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Coords}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding Coordinates.X}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Coordinates.Y}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
@@ -59,13 +59,13 @@
             <!-- -->
             <!--    ~1~ Draws a circle with a blue interior and a black outline. @1@ -->
             <!--    <Ellipse Width="50" Height="50" Stroke="Black" StrokeThickness="4" Canvas.Left="135" Canvas.Top="100" /> -->
-            <Button Canvas.Left="100" Canvas.Top="300">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Ellipse Width="70" Height="70" Fill="Azure"></Ellipse>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <!-- <Button Canvas.Left="100" Canvas.Top="300"> -->
+            <!--     <Button.Template> -->
+            <!--         <ControlTemplate TargetType="Button"> -->
+            <!--             ~1~ <Ellipse Width="70" Height="70" Fill="Azure"></Ellipse> @1@ -->
+            <!--         </ControlTemplate> -->
+            <!--     </Button.Template> -->
+            <!-- </Button> -->
         </Canvas>
         <StackPanel Orientation="Horizontal">
             <Button Content="Press me" MinHeight="100" MinWidth="500" Command="{Binding ButtomClick}" />

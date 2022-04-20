@@ -7,6 +7,7 @@ namespace Logic
         private double _radius = 25;
         private int _x = 0;
         private int _y = 0;
+        private Vector2 _coordinates;
         private Vector2 _velocity;
 
         // private long _gameTime = DateTime.Now.Millisecond;
@@ -53,7 +54,11 @@ namespace Logic
             set => _y = value;
         }
 
-        public Vector2 Coordinates { get; set; }
+        public Vector2 Coordinates
+        {
+            get => _coordinates;
+            set => _coordinates = value;
+        }
 
         public Vector2 Velocity { get; set; }
 

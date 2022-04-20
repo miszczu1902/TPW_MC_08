@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Numerics;
 using Logic;
 
@@ -8,7 +10,7 @@ namespace TP.ConcurrentProgramming.PresentationModel
     {
         public abstract int Radius { get; }
 
-        public abstract ObservableCollection<Vector2> Coordinates(int balls);
+        public abstract ObservableCollection<Ball> Coordinates(int balls);
 
         public static ModelAbstractApi CreateApi()
         {
@@ -23,15 +25,27 @@ namespace TP.ConcurrentProgramming.PresentationModel
         private Board Board = new Board();
         public override int Radius => 25;
 
-        public override ObservableCollection<Vector2> Coordinates(int balls)
+        public override ObservableCollection<Ball> Coordinates(int balls)
         {
             Board.CreateBalls(balls);
-            return Board.BallsCords;
+            foreach (var ball in Board.Balls)
+            {
+                // Trace.WriteLine("x");
+                // Trace.WriteLine(ball.Coordinates.X);
+                // Trace.WriteLine("y");
+                // Trace.WriteLine(ball.Coordinates.Y);
+                Trace.WriteLine("x");
+                Trace.WriteLine(ball.Coordinates.X);
+                Trace.WriteLine("y");
+                Trace.WriteLine(ball.Coordinates.Y);
+            }
+            
+            return Board.Balls;
         }
 
         public override void BeginMove()
         {
-            Board.StartBalls();
+            // Board.StartBalls();
         }
     }
 }

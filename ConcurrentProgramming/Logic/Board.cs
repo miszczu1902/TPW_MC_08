@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class Board : INotifyPropertyChanged
+    public class Board
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
-        private List<Ball> _balls = new List<Ball>();
+        private ObservableCollection<Ball> _balls = new ObservableCollection<Ball>();
         private Generator _generator = new Generator();
         private List<Task> _tasks = new List<Task>();
         private ObservableCollection<Vector2> _ballsCords = new ObservableCollection<Vector2>();
@@ -28,7 +26,8 @@ namespace Logic
             get => _ballsCords;
             set => _ballsCords = value ?? throw new ArgumentNullException(nameof(value));
         }
-        
+
+
         public void AddBallToBoard(Ball ball)
         {
             _balls.Add(ball);
@@ -39,16 +38,16 @@ namespace Logic
             _balls.Remove(ball);
         }
 
-        // public void ShowBalls()
-        // {
-        //     foreach (var ball in _balls)
-        //     {
-        //         Console.Write(" " + ball.Radius);
-        //         Console.WriteLine(ball.Coordinates);
-        //     }
-        // }
+        public void ShowBalls()
+        {
+            foreach (var ball in _balls)
+            {
+                Console.Write(" " + ball.Radius);
+                Console.WriteLine(ball.Coordinates);
+            }
+        }
 
-        public List<Ball> Balls
+        public ObservableCollection<Ball> Balls
         {
             get => _balls;
             set => _balls = value ?? throw new ArgumentNullException(nameof(value));
@@ -70,7 +69,7 @@ namespace Logic
             for (int i = 0; i < countBalls; i++)
             {
                 Ball ball = new Ball();
-                _generator.GenerateXY();
+                // _generator.GenerateXY();
                 ball.Velocity = Vector2.Zero;
                 // ball.Velocity = new Vector2(50 - (float) random.NextDouble() * 100,
                 //  50 - (float) random.NextDouble() * 100);
@@ -80,7 +79,7 @@ namespace Logic
             }
         }
 
-        public async void StartBalls()
+        public void StartBalls()
         {
             foreach (var ball in _balls)
             {
@@ -100,13 +99,6 @@ namespace Logic
             // Task.WaitAll(_tasks.ToArray());
             // foreach (Task t in _tasks)
             //     Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
