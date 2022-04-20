@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,9 +15,16 @@ namespace Logic
         private List<Ball> _balls = new List<Ball>();
         private Generator _generator = new Generator();
         private List<Task> _tasks = new List<Task>();
+        private ObservableCollection<Vector2> _ballsCords = new ObservableCollection<Vector2>();
 
         public Board()
         {
+        }
+
+        public ObservableCollection<Vector2> BallsCords
+        {
+            get => _ballsCords;
+            set => _ballsCords = value ?? throw new ArgumentNullException(nameof(value));
         }
 
 
@@ -56,7 +64,7 @@ namespace Logic
 
         public void CreateBalls(int countBalls)
         {
-            System.Random random = new System.Random();
+            Random random = new Random();
 
             for (int i = 0; i < countBalls; i++)
             {
@@ -67,6 +75,7 @@ namespace Logic
                 //  50 - (float) random.NextDouble() * 100);
                 ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 _balls.Add(ball);
+                _ballsCords.Add(ball.Coordinates);
             }
         }
 
@@ -87,9 +96,9 @@ namespace Logic
                 //task.Start();
             }
 
-            Task.WaitAll(_tasks.ToArray());
-            foreach (Task t in _tasks)
-                Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
+            // Task.WaitAll(_tasks.ToArray());
+            // foreach (Task t in _tasks)
+            //     Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
         }
     }
 }

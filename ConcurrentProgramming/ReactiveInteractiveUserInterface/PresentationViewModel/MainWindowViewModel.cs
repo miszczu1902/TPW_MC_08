@@ -1,15 +1,4 @@
-﻿//__________________________________________________________________________________________
-//
-//  Copyright 2022 Mariusz Postol LODZ POLAND.
-//
-//  To be in touch join the community by pressing the `Watch` button and to get started
-//  comment using the discussion panel at
-//  https://github.com/mpostol/TP/discussions/182
-//  with an introduction of yourself and tell us about what you do with this community.
-//__________________________________________________________________________________________
-
-using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using TP.ConcurrentProgramming.PresentationModel;
 using TP.ConcurrentProgramming.PresentationViewModel.MVVMLight;
 
@@ -18,34 +7,20 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
   public class MainWindowViewModel : ViewModelBase
 
   {
-    #region public API
-
+    private int balls;
+    private int b_Radious;
+    private object coords;
+    private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
     public MainWindowViewModel() : this(ModelAbstractApi.CreateApi())
-    {
-    }
+    { }
 
     public MainWindowViewModel(ModelAbstractApi modelAbstractApi)
     {
       ModelLayer = modelAbstractApi;
       Radious = ModelLayer.Radius;
       ButtomClick = new RelayCommand(() => ClickHandler());
-      Content = ModelLayer.Content;
     }
-
-    public IList<object> CirclesCollection
-    {
-      get
-      {
-        return b_CirclesCollection;
-      }
-      set
-      {
-        if (value.Equals(b_CirclesCollection))
-          return;
-        RaisePropertyChanged("CirclesCollection");
-      }
-    }
-
+    
     public int Radious
     {
       get
@@ -61,20 +36,6 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
       }
     }
     
-    public int Content
-    {
-      get
-      {
-        return b_Content;
-      }
-      set
-      {
-        if (value.Equals(b_Content))
-          return;
-        b_Content = value;
-        RaisePropertyChanged("Content");
-      }
-    }
 
     public ICommand ButtomClick { get; set; }
 
@@ -87,17 +48,5 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
     {
       throw new System.NotImplementedException();
     }
-
-    #endregion public API
-
-    #region private
-
-    private IList<object> b_CirclesCollection;
-    private int b_Radious;
-    private ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
-    private int b_Content;
-
-    #endregion private
-
   }
 }
