@@ -45,7 +45,7 @@ namespace TP.ConcurrentProgramming.PresentationModel
 
         public override void BeginMove()
         {
-            // Board.StartBalls();
+            Board.StartBalls();
         }
     }
 }

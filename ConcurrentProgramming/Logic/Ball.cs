@@ -42,16 +42,15 @@ namespace Logic
             set => _radius = value;
         }
 
-        public int X
+        public float X
         {
-            get => _x;
-            set => _x = value;
+            get => _coordinates.X;
+
         }
 
-        public int Y
+        public float Y
         {
-            get => _y;
-            set => _y = value;
+            get => _coordinates.Y;
         }
 
         public Vector2 Coordinates
