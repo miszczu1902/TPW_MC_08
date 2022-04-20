@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Numerics;
 using Logic;
 
@@ -15,17 +14,24 @@ namespace TP.ConcurrentProgramming.PresentationModel
         {
             return new ModelApi();
         }
+
+        public abstract void BeginMove();
     }
 
     internal class ModelApi : ModelAbstractApi
     {
+        private Board Board = new Board();
         public override int Radius => 25;
 
         public override ObservableCollection<Vector2> Coordinates(int balls)
         {
-            Board board = new Board();
-            board.CreateBalls(balls);
-            return board.BallsCords;
+            Board.CreateBalls(balls);
+            return Board.BallsCords;
+        }
+
+        public override void BeginMove()
+        {
+            Board.StartBalls();
         }
     }
 }

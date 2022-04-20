@@ -31,8 +31,8 @@
                 </EventTrigger>
             </Ellipse.Triggers>
         </Ellipse>
-
-        <!-- Draws an oval with a blue interior and a black outline. -->
+        <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" Width="100" Height="50" Canvas.Left="271" Canvas.Top="491" />
+     <!-- Draws an oval with a blue interior and a black outline. -->
         <Ellipse Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="4" Canvas.Left="400" Canvas.Top="100">
         </Ellipse>
 

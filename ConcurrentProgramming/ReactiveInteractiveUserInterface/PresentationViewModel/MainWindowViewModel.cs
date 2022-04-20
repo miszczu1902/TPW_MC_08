@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using Logic;
 using TP.ConcurrentProgramming.PresentationModel;
 using TP.ConcurrentProgramming.PresentationViewModel.MVVMLight;
 
@@ -41,12 +43,26 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
 
     private void ClickHandler()
     {
-      this.Close();
+      ModelLayer.Coordinates(_AmountOfBalls);
     }
 
-    private void Close()
+
+    
+    private int _AmountOfBalls;
+    public int BallsAmount
     {
-      throw new System.NotImplementedException();
+      get { return this._AmountOfBalls; }
+      set 
+      {
+        this._AmountOfBalls = value;
+          this.RaisePropertyChanged();
+      }
+
+      } 
+
     }
+    
+    
   }
-}
+  
+  
