@@ -10,47 +10,65 @@
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
-        
-    <Canvas Width="900" Height="600">
-        <!-- Draws an oval with a blue interior. -->
-        <Ellipse Name="Elipse1" Width= "{ Binding Radious }" Height="50" Fill="Blue" Canvas.Left="400" Canvas.Top="250" Opacity="1">
-            <Ellipse.Triggers>
-                <EventTrigger RoutedEvent="Ellipse.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                Storyboard.TargetName="Elipse1"
-                                Storyboard.TargetProperty="Height"
-                                From="10.0"
-                                To="250.0"
-                                Duration="0:0:5"
-                                AutoReverse="True"
-                                RepeatBehavior="Forever" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Ellipse.Triggers>
-        </Ellipse>
-        <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" Width="100" Height="50" Canvas.Left="271" Canvas.Top="491" />
-     <!-- Draws an oval with a blue interior and a black outline. -->
-        <Ellipse Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="4" Canvas.Left="400" Canvas.Top="100">
-        </Ellipse>
 
-        <!-- Draws a circle with a blue interior. -->
-        <Ellipse Width="50" Height="50" Fill="Yellow" Canvas.Left="135" Canvas.Top="250" />
-
-        <!-- Draws a circle with a blue interior and a black outline. -->
-        <Ellipse Width="50" Height="50" Stroke="Black" StrokeThickness="4" Canvas.Left="135" Canvas.Top="100" />
-        <Button Canvas.Left="100" Canvas.Top="300">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Ellipse Width="70" Height="70" Fill="Azure" ></Ellipse>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-    </Canvas>
+        <Canvas Width="900" Height="600">
+            <ItemsControl ItemsSource="{Binding Coords, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Coords}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Coords}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="25" Height="25" Fill="Black"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!-- Draws an oval with a blue interior. -->
+            <!--    <Ellipse Name="Elipse1" Width= "{ Binding Radious }" Height="50" Fill="Blue" Canvas.Left="400" Canvas.Top="250" Opacity="1"> -->
+            <!--        <Ellipse.Triggers> -->
+            <!--            <EventTrigger RoutedEvent="Ellipse.Loaded"> -->
+            <!--                <BeginStoryboard> -->
+            <!--                    <Storyboard> -->
+            <!--                        <DoubleAnimation -->
+            <!--                            Storyboard.TargetName="Elipse1" -->
+            <!--                            Storyboard.TargetProperty="Height" -->
+            <!--                            From="10.0" -->
+            <!--                            To="250.0" -->
+            <!--                            Duration="0:0:5" -->
+            <!--                            AutoReverse="True" -->
+            <!--                            RepeatBehavior="Forever" /> -->
+            <!--                    </Storyboard> -->
+            <!--                </BeginStoryboard> -->
+            <!--            </EventTrigger> -->
+            <!--        </Ellipse.Triggers> -->
+            <!--    </Ellipse> -->
+            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" Width="100" Height="50" Canvas.Left="271" Canvas.Top="491" />
+            <!-- ~1~ Draws an oval with a blue interior and a black outline. @1@ -->
+            <!--    <Ellipse Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="4" Canvas.Left="400" Canvas.Top="100"> -->
+            <!--    </Ellipse> -->
+            <!-- -->
+            <!--    ~1~ Draws a circle with a blue interior. @1@ -->
+            <!--    <Ellipse Width="50" Height="50" Fill="Yellow" Canvas.Left="135" Canvas.Top="250" /> -->
+            <!-- -->
+            <!--    ~1~ Draws a circle with a blue interior and a black outline. @1@ -->
+            <!--    <Ellipse Width="50" Height="50" Stroke="Black" StrokeThickness="4" Canvas.Left="135" Canvas.Top="100" /> -->
+            <Button Canvas.Left="100" Canvas.Top="300">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Ellipse Width="70" Height="70" Fill="Azure"></Ellipse>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Canvas>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Press me" MinHeight="100" MinWidth="500" Command= "{Binding ButtomClick}"/>
+            <Button Content="Press me" MinHeight="100" MinWidth="500" Command="{Binding ButtomClick}" />
         </StackPanel>
     </StackPanel>
 </Window>

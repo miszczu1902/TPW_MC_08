@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class Board
+    public class Board : INotifyPropertyChanged
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
@@ -26,8 +28,7 @@ namespace Logic
             get => _ballsCords;
             set => _ballsCords = value ?? throw new ArgumentNullException(nameof(value));
         }
-
-
+        
         public void AddBallToBoard(Ball ball)
         {
             _balls.Add(ball);
@@ -38,14 +39,14 @@ namespace Logic
             _balls.Remove(ball);
         }
 
-        public void ShowBalls()
-        {
-            foreach (var ball in _balls)
-            {
-                Console.Write(" " + ball.Radius);
-                Console.WriteLine(ball.Coordinates);
-            }
-        }
+        // public void ShowBalls()
+        // {
+        //     foreach (var ball in _balls)
+        //     {
+        //         Console.Write(" " + ball.Radius);
+        //         Console.WriteLine(ball.Coordinates);
+        //     }
+        // }
 
         public List<Ball> Balls
         {
@@ -79,7 +80,7 @@ namespace Logic
             }
         }
 
-        public void StartBalls()
+        public async void StartBalls()
         {
             foreach (var ball in _balls)
             {
@@ -89,7 +90,7 @@ namespace Logic
                     {
                         Console.WriteLine(ball);
                         ball.UpdatePostion(DateTime.Now.Second);
-                        ShowBalls();
+                        // ShowBalls();
                     }
                 });
                 _tasks.Add(task);
@@ -99,6 +100,13 @@ namespace Logic
             // Task.WaitAll(_tasks.ToArray());
             // foreach (Task t in _tasks)
             //     Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
