@@ -25,6 +25,11 @@ namespace Logic
             get => _coordinates.Y;
         }
 
+        public double Radius
+        {
+            get => _radius;
+        }
+
         public Vector2 Coordinates
         {
             get => _coordinates;

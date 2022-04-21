@@ -16,7 +16,7 @@ namespace Logic
         public Board()
         {
         }
-        
+
         public ObservableCollection<Ball> Balls
         {
             get => _balls;
@@ -24,6 +24,11 @@ namespace Logic
 
         public void CreateBalls(int countBalls)
         {
+            if (Balls.Count != 0)
+            {
+                Balls.Clear();
+            }
+
             Random random = new Random();
 
             for (int i = 0; i < countBalls; i++)
