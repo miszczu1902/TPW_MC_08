@@ -8,7 +8,7 @@ namespace Logic
 {
     public class Ball :INotifyPropertyChanged
     {
-        private double _radius = 35;
+        private double _radius = 25;
         private int _x = 0;
         private int _y = 0;
         private Vector2 _coordinates;
@@ -68,21 +68,21 @@ namespace Logic
         public void UpdatePostion(long currentTime)
         {
             
-            if (Velocity == Vector2.Zero)
-            {
-                System.Random random = new System.Random();
-                Velocity = new Vector2((float) random.NextDouble(), (float) random.NextDouble());
-            }
+            // if (Velocity == Vector2.Zero)
+            // {
+            //     System.Random random = new System.Random();
+            //     Velocity = new Vector2((float) random.NextDouble(), (float) random.NextDouble());
+            // }
             // Console.WriteLine(Velocity);
             //Console.WriteLine(currentTime);
             
-            Coordinates += Velocity * currentTime;
+            Coordinates += Velocity * 5;
             //Console.WriteLine(Coordinates.X);
             //Console.WriteLine("a");
             //Trace.WriteLine(Coordinates);
             //Console.WriteLine(Coordinates.Y);
-            if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH - _radius) Velocity *= -Vector2.UnitX;
-            if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY;
+            if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH ) Velocity *= -Vector2.UnitX;
+            if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT ) Velocity *= -Vector2.UnitY;
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }

@@ -72,7 +72,8 @@ namespace Logic
             {
                 Ball ball = new Ball();
                 // _generator.GenerateXY();
-                ball.Velocity = Vector2.Zero;
+                //ball.Velocity = Vector2.Zero;
+                ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
                 // ball.Velocity = new Vector2(50 - (float) random.NextDouble() * 100,
                 //  50 - (float) random.NextDouble() * 100);
                 ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
@@ -89,7 +90,7 @@ namespace Logic
                 {
                     while (true)
                     {
-                        Thread.Sleep(30);
+                        //Thread.Sleep(30);
                         ball.UpdatePostion(DateTime.Now.Second);
 
                         // ShowBalls();
