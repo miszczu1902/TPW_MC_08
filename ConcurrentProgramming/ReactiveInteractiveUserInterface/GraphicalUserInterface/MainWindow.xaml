@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TP.ConcurrentProgramming.PresentationViewModel;assembly=TP.ConcurrentProgramming.PresentationViewModel"
         mc:Ignorable="d"
-        Title="Presentation layer targeting reactive/interactive behaviour" Height="auto" Width="auto">
+        Title="Presentation layer targeting reactive/interactive behaviour" Height="500" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
-
-        <Canvas Width="900" Height="600">
+        <Canvas>
+        <Rectangle
+        Stroke="red"
+        Height="{Binding viewHeight}"
+        Width="{Binding viewWidth}"
+        ></Rectangle>
+            
             <ItemsControl ItemsSource="{Binding Coords, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -30,45 +35,11 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <!-- Draws an oval with a blue interior. -->
-            <!--    <Ellipse Name="Elipse1" Width= "{ Binding Radious }" Height="50" Fill="Blue" Canvas.Left="400" Canvas.Top="250" Opacity="1"> -->
-            <!--        <Ellipse.Triggers> -->
-            <!--            <EventTrigger RoutedEvent="Ellipse.Loaded"> -->
-            <!--                <BeginStoryboard> -->
-            <!--                    <Storyboard> -->
-            <!--                        <DoubleAnimation -->
-            <!--                            Storyboard.TargetName="Elipse1" -->
-            <!--                            Storyboard.TargetProperty="Height" -->
-            <!--                            From="10.0" -->
-            <!--                            To="250.0" -->
-            <!--                            Duration="0:0:5" -->
-            <!--                            AutoReverse="True" -->
-            <!--                            RepeatBehavior="Forever" /> -->
-            <!--                    </Storyboard> -->
-            <!--                </BeginStoryboard> -->
-            <!--            </EventTrigger> -->
-            <!--        </Ellipse.Triggers> -->
-            <!--    </Ellipse> -->
-            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" Width="100" Height="50" Canvas.Left="271" Canvas.Top="491" />
-            <!-- ~1~ Draws an oval with a blue interior and a black outline. @1@ -->
-            <!--    <Ellipse Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="4" Canvas.Left="400" Canvas.Top="100"> -->
-            <!--    </Ellipse> -->
-            <!-- -->
-            <!--    ~1~ Draws a circle with a blue interior. @1@ -->
-            <!--    <Ellipse Width="50" Height="50" Fill="Yellow" Canvas.Left="135" Canvas.Top="250" /> -->
-            <!-- -->
-            <!--    ~1~ Draws a circle with a blue interior and a black outline. @1@ -->
-            <!--    <Ellipse Width="50" Height="50" Stroke="Black" StrokeThickness="4" Canvas.Left="135" Canvas.Top="100" /> -->
-            <!-- <Button Canvas.Left="100" Canvas.Top="300"> -->
-            <!--     <Button.Template> -->
-            <!--         <ControlTemplate TargetType="Button"> -->
-            <!--             ~1~ <Ellipse Width="70" Height="70" Fill="Azure"></Ellipse> @1@ -->
-            <!--         </ControlTemplate> -->
-            <!--     </Button.Template> -->
-            <!-- </Button> -->
+
+            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" Width="100" Height="50" Canvas.Left="350" Canvas.Top="400" />
+        
+        
+            <Button Content="Press me"  Command="{Binding ButtomClick}" Canvas.Left="150" Canvas.Top="400" Width="100" Height="50" />
         </Canvas>
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Press me" MinHeight="100" MinWidth="500" Command="{Binding ButtomClick}" />
-        </StackPanel>
     </StackPanel>
 </Window>

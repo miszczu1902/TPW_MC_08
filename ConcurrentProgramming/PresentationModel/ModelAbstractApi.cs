@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Numerics;
@@ -9,22 +10,25 @@ namespace TP.ConcurrentProgramming.PresentationModel
     public abstract class ModelAbstractApi
     {
         public abstract int Radius { get; }
+        public abstract int Width { get; }
+        public abstract int Height { get; }
 
         public abstract ObservableCollection<Ball> Coordinates(int balls);
-
+        public abstract void BeginMove();
         public static ModelAbstractApi CreateApi()
         {
             return new ModelApi();
         }
 
-        public abstract void BeginMove();
+        
     }
 
     internal class ModelApi : ModelAbstractApi
     {
         private Board Board = new Board();
         public override int Radius => 25;
-
+        public override int Width => Board.WIDTH;
+        public override int Height => Board.HEIGHT;
         public override ObservableCollection<Ball> Coordinates(int balls)
         {
             Board.CreateBalls(balls);
@@ -47,5 +51,7 @@ namespace TP.ConcurrentProgramming.PresentationModel
         {
             Board.StartBalls();
         }
+
+
     }
 }

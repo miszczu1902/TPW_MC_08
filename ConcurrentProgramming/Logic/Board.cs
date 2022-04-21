@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Logic
@@ -87,11 +89,13 @@ namespace Logic
                 {
                     while (true)
                     {
-                        Console.WriteLine(ball);
+                        Thread.Sleep(30);
                         ball.UpdatePostion(DateTime.Now.Second);
+
                         // ShowBalls();
                     }
                 });
+                //Thread.Sleep(1);
                 _tasks.Add(task);
                 //task.Start();
             }

@@ -11,6 +11,8 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
     {
         private int _AmountOfBalls;
         private int b_Radious;
+        private int _width;
+        private int _height;
         private IList coords;
         private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
 
@@ -22,6 +24,8 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
         {
             ModelLayer = modelAbstractApi;
             Radious = ModelLayer.Radius;
+            _height = ModelLayer.Height;
+            _width = ModelLayer.Width;
             ButtomClick = new RelayCommand(() => ClickHandler());
             Coords = ModelLayer.Coordinates(_AmountOfBalls);
         }
@@ -37,6 +41,16 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
                 RaisePropertyChanged("Radious");
             }
         }
+
+        public int viewHeight
+        {
+            get{return _height;}
+    }
+        public int viewWidth
+        {
+            get{return _width;}
+    }
+        
 
 
         public ICommand ButtomClick { get; set; }
@@ -63,8 +77,6 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
             set
             {
                 coords = value;
-                Trace.WriteLine("XD");
-                Trace.WriteLine(coords);
                 RaisePropertyChanged("Coords");
             }
         }

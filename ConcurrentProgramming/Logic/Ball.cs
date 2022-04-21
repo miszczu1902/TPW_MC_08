@@ -1,10 +1,14 @@
-﻿using System.Numerics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Logic
 {
-    public class Ball
+    public class Ball :INotifyPropertyChanged
     {
-        private double _radius = 25;
+        private double _radius = 35;
         private int _x = 0;
         private int _y = 0;
         private Vector2 _coordinates;
@@ -63,6 +67,7 @@ namespace Logic
 
         public void UpdatePostion(long currentTime)
         {
+            
             if (Velocity == Vector2.Zero)
             {
                 System.Random random = new System.Random();
@@ -70,14 +75,23 @@ namespace Logic
             }
             // Console.WriteLine(Velocity);
             //Console.WriteLine(currentTime);
-
+            
             Coordinates += Velocity * currentTime;
             //Console.WriteLine(Coordinates.X);
             //Console.WriteLine("a");
-
+            //Trace.WriteLine(Coordinates);
             //Console.WriteLine(Coordinates.Y);
             if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH - _radius) Velocity *= -Vector2.UnitX;
             if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT - _radius) Velocity *= -Vector2.UnitY;
+            RaisePropertyChanged(nameof(X));
+            RaisePropertyChanged(nameof(Y));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
