@@ -12,7 +12,7 @@ public class BallTests
         Ball ball = new Ball();
         Assert.AreEqual(25, ball.Radius);
     }
-    
+
     [Test]
     public void TestCoordiantesAndXAndY()
     {
@@ -24,21 +24,21 @@ public class BallTests
         Assert.AreEqual(5, ball.X);
         Assert.AreEqual(15, ball.Y);
     }
-    
+
     [Test]
     public void TestVelocity()
     {
         Ball ball = new Ball();
-        ball.Velocity =  new Vector2(-3, 7);
+        ball.Velocity = new Vector2(-3, 7);
         Assert.AreEqual(-3, ball.Velocity.X);
         Assert.AreEqual(7, ball.Velocity.Y);
     }
-    
+
     [Test]
     public void TestUpdatePosition()
     {
         Ball ball = new Ball();
-        ball.Velocity =  new Vector2(-3, 7);
+        ball.Velocity = new Vector2(-3, 7);
         ball.Coordinates = new Vector2(Board.WIDTH, Board.HEIGHT);
         ball.UpdatePostion();
         Assert.AreNotEqual(Board.WIDTH, ball.Velocity.X);

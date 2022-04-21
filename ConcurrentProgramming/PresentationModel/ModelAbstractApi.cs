@@ -10,6 +10,7 @@ namespace TP.ConcurrentProgramming.PresentationModel
 
         public abstract ObservableCollection<Ball> Balls(int balls);
         public abstract void BeginMove();
+        public abstract void StopMove();
 
         public static ModelAbstractApi CreateApi()
         {
@@ -32,6 +33,11 @@ namespace TP.ConcurrentProgramming.PresentationModel
         public override void BeginMove()
         {
             Board.StartBalls();
+        }
+
+        public override void StopMove()
+        {
+            Board.Stop();
         }
     }
 }

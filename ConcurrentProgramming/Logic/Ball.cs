@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 
 namespace Logic
 {
-    public class Ball :INotifyPropertyChanged
+    public class Ball : INotifyPropertyChanged
     {
         private double _radius = 25;
+        private int _speed = 5000;
         private Vector2 _coordinates;
         private Vector2 _velocity;
-        
+
         public Ball()
         {
         }
@@ -17,7 +18,6 @@ namespace Logic
         public float X
         {
             get => _coordinates.X;
-
         }
 
         public float Y
@@ -40,7 +40,7 @@ namespace Logic
 
         public void UpdatePostion()
         {
-            Coordinates += new Vector2(Velocity.X * 15, Velocity.Y * 15);
+            Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
             if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH)
             {
                 Velocity *= -Vector2.UnitX;
@@ -50,13 +50,13 @@ namespace Logic
             {
                 Velocity *= -Vector2.UnitY;
             }
-            
+
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

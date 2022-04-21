@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Diagnostics;
 using System.Windows.Input;
 using TP.ConcurrentProgramming.PresentationModel;
 using TP.ConcurrentProgramming.PresentationViewModel.MVVMLight;
@@ -24,6 +26,7 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
             _height = ModelLayer.Height;
             _width = ModelLayer.Width;
             ClickButton = new RelayCommand(() => ClickHandler());
+            StopButton = new RelayCommand(() => StopHandler());
             Ballses = ModelLayer.Balls(_amountOfBalls);
         }
 
@@ -38,12 +41,20 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
         }
 
         public ICommand ClickButton { get; set; }
+        public ICommand StopButton { get; set; }
 
         private void ClickHandler()
         {
             ModelLayer.Balls(_amountOfBalls);
+
             ModelLayer.BeginMove();
         }
+
+        private void StopHandler()
+        {
+            ModelLayer.StopMove();
+        }
+
 
         public int BallsAmount
         {

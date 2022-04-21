@@ -38,9 +38,11 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" PreviewTextInput="NumberValidationTextBox"
+            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox"
                      Width="50" Height="20" Canvas.Left="350" Canvas.Top="410" />
             <Button Content="Uruchom" Command="{Binding ClickButton}" Canvas.Left="200" Canvas.Top="400" Width="100"
+                    Height="50" />
+            <Button Content="Zakoncz" Command="{Binding StopButton}" Canvas.Left="450" Canvas.Top="400" Width="100"
                     Height="50" />
         </Canvas>
     </StackPanel>
