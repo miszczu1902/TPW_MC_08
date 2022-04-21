@@ -90,7 +90,7 @@ namespace Logic
                 {
                     while (true)
                     {
-                        //Thread.Sleep(30);
+                        // Thread.Sleep(30);
                         ball.UpdatePostion(DateTime.Now.Second);
 
                         // ShowBalls();

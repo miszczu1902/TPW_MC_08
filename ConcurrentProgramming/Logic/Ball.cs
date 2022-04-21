@@ -76,7 +76,7 @@ namespace Logic
             // Console.WriteLine(Velocity);
             //Console.WriteLine(currentTime);
             
-            Coordinates += Velocity * 5;
+            Coordinates += new Vector2(Velocity.X * 15, Velocity.Y * 15);
             //Console.WriteLine(Coordinates.X);
             //Console.WriteLine("a");
             //Trace.WriteLine(Coordinates);

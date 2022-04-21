@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics;
 using System.Windows.Input;
 using TP.ConcurrentProgramming.PresentationModel;
 using TP.ConcurrentProgramming.PresentationViewModel.MVVMLight;
@@ -14,8 +13,7 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
         private int _width;
         private int _height;
         private IList coords;
-        private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
-
+        private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi(); 
         public MainWindowViewModel() : this(ModelAbstractApi.CreateApi())
         {
         }
