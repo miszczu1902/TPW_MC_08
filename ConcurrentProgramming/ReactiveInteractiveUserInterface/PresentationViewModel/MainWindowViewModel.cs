@@ -8,12 +8,12 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
     public class MainWindowViewModel : ViewModelBase
 
     {
-        private int _AmountOfBalls;
-        private int b_Radious;
-        private int _width;
-        private int _height;
-        private IList coords;
-        private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi(); 
+        private readonly ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
+        private readonly int _width;
+        private readonly int _height;
+        private int _amountOfBalls;
+        private IList _balls;
+
         public MainWindowViewModel() : this(ModelAbstractApi.CreateApi())
         {
         }
@@ -21,61 +21,47 @@ namespace TP.ConcurrentProgramming.PresentationViewModel
         public MainWindowViewModel(ModelAbstractApi modelAbstractApi)
         {
             ModelLayer = modelAbstractApi;
-            Radious = ModelLayer.Radius;
             _height = ModelLayer.Height;
             _width = ModelLayer.Width;
-            ButtomClick = new RelayCommand(() => ClickHandler());
-            Coords = ModelLayer.Coordinates(_AmountOfBalls);
+            ClickButton = new RelayCommand(() => ClickHandler());
+            Ballses = ModelLayer.Balls(_amountOfBalls);
         }
 
-        public int Radious
+        public int ViewHeight
         {
-            get { return b_Radious; }
-            set
-            {
-                if (value.Equals(b_Radious))
-                    return;
-                b_Radious = value;
-                RaisePropertyChanged("Radious");
-            }
+            get { return _height; }
         }
 
-        public int viewHeight
+        public int ViewWidth
         {
-            get{return _height;}
-    }
-        public int viewWidth
-        {
-            get{return _width;}
-    }
-        
+            get { return _width; }
+        }
 
-
-        public ICommand ButtomClick { get; set; }
+        public ICommand ClickButton { get; set; }
 
         private void ClickHandler()
         {
-            ModelLayer.Coordinates(_AmountOfBalls);
+            ModelLayer.Balls(_amountOfBalls);
             ModelLayer.BeginMove();
         }
-        
+
         public int BallsAmount
         {
-            get { return _AmountOfBalls; }
+            get { return _amountOfBalls; }
             set
             {
-                _AmountOfBalls = value;
+                _amountOfBalls = value;
                 RaisePropertyChanged("BallsAmount");
             }
         }
 
-        public IList Coords
+        public IList Ballses
         {
-            get => coords;
+            get => _balls;
             set
             {
-                coords = value;
-                RaisePropertyChanged("Coords");
+                _balls = value;
+                RaisePropertyChanged("Ballses");
             }
         }
     }

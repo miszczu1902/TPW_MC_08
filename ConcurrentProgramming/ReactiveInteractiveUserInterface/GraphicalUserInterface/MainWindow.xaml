@@ -12,36 +12,36 @@
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
         <Canvas>
-        <Rectangle
-        Stroke="red"
-        StrokeThickness="3"
-        Canvas.Left="25"
-        Canvas.Top="25"
-        Height="{Binding viewHeight}"
-        Width="{Binding viewWidth}"
-        ></Rectangle>
-            
-            <ItemsControl ItemsSource="{Binding Coords, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <Rectangle
+                Stroke="Red"
+                StrokeThickness="3"
+                Canvas.Left="25"
+                Canvas.Top="25"
+                Height="{Binding ViewHeight}"
+                Width="{Binding ViewWidth}">
+            </Rectangle>
+            <ItemsControl ItemsSource="{Binding Ballses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas/>
+                        <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="25" Height="25" Fill="Black"/>
+                        <Ellipse Width="25" Height="25" Fill="Black" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" PreviewTextInput="NumberValidationTextBox" Width="50" Height="20" Canvas.Left="350" Canvas.Top="410" />
-            <Button Content="Uruchom"  Command="{Binding ButtomClick}" Canvas.Left="200" Canvas.Top="400" Width="100" Height="50" />
+            <TextBox Text="{Binding BallsAmount}" Name="MessageTextBox" PreviewTextInput="NumberValidationTextBox"
+                     Width="50" Height="20" Canvas.Left="350" Canvas.Top="410" />
+            <Button Content="Uruchom" Command="{Binding ClickButton}" Canvas.Left="200" Canvas.Top="400" Width="100"
+                    Height="50" />
         </Canvas>
     </StackPanel>
 </Window>
