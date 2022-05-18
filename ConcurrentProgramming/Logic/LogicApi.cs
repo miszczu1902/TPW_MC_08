@@ -19,6 +19,7 @@ namespace Logic
         private DataAbstarctApi _data;
         private IList _balls;
         private List<Task> _tasks = new List<Task>();
+        private object _lock = new object();
         public LogicApi()
         {
             _data = DataAbstarctApi.CreateBallsData();
@@ -85,8 +86,10 @@ namespace Logic
                             {
                                 break;
                             }
-
+                            lock(_lock)
+                            {
                             ball.UpdatePostion();
+                            }
                         }
                     }
                 );
