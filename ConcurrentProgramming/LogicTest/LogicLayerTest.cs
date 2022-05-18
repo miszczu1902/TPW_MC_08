@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace LogicTest;
 
-public class BoardTest
+public class LogicLayerTest
 {
     [Test]
     public void TestConstructor()
