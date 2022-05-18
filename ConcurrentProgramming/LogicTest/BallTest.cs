@@ -39,9 +39,9 @@ public class BallTests
     {
         Ball ball = new Ball();
         ball.Velocity = new Vector2(-3, 7);
-        ball.Coordinates = new Vector2(Board.WIDTH, Board.HEIGHT);
+        ball.Coordinates = new Vector2(LogicApi.WIDTH, LogicApi.HEIGHT);
         ball.UpdatePostion();
-        Assert.AreNotEqual(Board.WIDTH, ball.Velocity.X);
-        Assert.AreNotEqual(Board.HEIGHT, ball.Velocity.Y);
+        Assert.AreNotEqual(LogicApi.WIDTH, ball.Velocity.X);
+        Assert.AreNotEqual(LogicApi.HEIGHT, ball.Velocity.Y);
     }
 }

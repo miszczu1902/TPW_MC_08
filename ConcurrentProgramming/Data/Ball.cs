@@ -10,6 +10,8 @@ namespace Logic
         private int _speed = 5000;
         private Vector2 _coordinates;
         private Vector2 _velocity;
+        public static int WIDTH = 720;
+        public static int HEIGHT = 360; 
 
         public Ball()
         {
@@ -41,12 +43,12 @@ namespace Logic
         public void UpdatePostion()
         {
             Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
-            if (Coordinates.X < _radius || Coordinates.X > Board.WIDTH)
+            if (Coordinates.X < _radius || Coordinates.X > WIDTH)
             {
                 Velocity *= -Vector2.UnitX;
             }
 
-            if (Coordinates.Y < _radius || Coordinates.Y > Board.HEIGHT)
+            if (Coordinates.Y < _radius || Coordinates.Y > HEIGHT)
             {
                 Velocity *= -Vector2.UnitY;
             }

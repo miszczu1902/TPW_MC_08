@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
 using Logic;
 
 namespace TP.ConcurrentProgramming.PresentationModel
@@ -8,7 +9,7 @@ namespace TP.ConcurrentProgramming.PresentationModel
         public abstract int Width { get; }
         public abstract int Height { get; }
 
-        public abstract ObservableCollection<Ball> Balls(int balls);
+        public abstract IList Balls(int balls);
         public abstract void BeginMove();
         public abstract void StopMove();
 
@@ -20,24 +21,24 @@ namespace TP.ConcurrentProgramming.PresentationModel
 
     internal class ModelApi : ModelAbstractApi
     {
-        private Board Board = new Board();
-        public override int Width => Board.WIDTH;
-        public override int Height => Board.HEIGHT;
+        private LogicApi _logicApi = new LogicApi();
+        public override int Width => LogicApi.WIDTH;
+        public override int Height => LogicApi.HEIGHT;
 
-        public override ObservableCollection<Ball> Balls(int balls)
+        public override IList Balls(int balls)
         {
-            Board.CreateBalls(balls);
-            return Board.Balls;
+            _logicApi.CreateBalls(balls);
+            return _logicApi.Balls;
         }
 
         public override void BeginMove()
         {
-            Board.StartBalls();
+            _logicApi.StartBalls();
         }
 
         public override void StopMove()
         {
-            Board.Stop();
+            _logicApi.Stop();
         }
     }
 }

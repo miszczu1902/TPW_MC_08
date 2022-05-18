@@ -1,24 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Data;
 
 namespace Logic
 {
-    public class Board
+    public class LogicApi : LogicAbstractApi
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
         private CancellationToken _cancellationToken;
         private CancellationTokenSource _cancellationTokenSource;
-        private ObservableCollection<Ball> _balls = new ObservableCollection<Ball>();
+        private DataAbstarctApi _data;
+        private IList _balls;
         private List<Task> _tasks = new List<Task>();
-
-        public Board()
+        public LogicApi()
         {
+            _data = DataAbstarctApi.CreateBallsData();
+            _balls = _data._balls();
         }
 
         public int TasksAmount
@@ -30,7 +34,7 @@ namespace Logic
 
         public CancellationTokenSource CancellationTokenSource => _cancellationTokenSource;
 
-        public ObservableCollection<Ball> Balls
+        public IList Balls
         {
             get => _balls;
         }
