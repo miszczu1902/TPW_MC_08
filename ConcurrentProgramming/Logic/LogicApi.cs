@@ -88,7 +88,7 @@ namespace Logic
                             }
                             lock(_lock)
                             {
-                            ball.UpdatePostion();
+                                ball.BallHit(_balls);
                             }
                         }
                     }

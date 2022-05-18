@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -11,12 +12,12 @@ namespace Logic
         private int margin = 25;
         private double _radius = 25;
         private int _speed = 5000;
-        public double _mass;
+        public float _mass;
         private Vector2 _coordinates;
         private Vector2 _velocity;
         private Random random = new Random();
 
-        public double Mass
+        public float Mass
         {
             get => _mass;
             set => _mass = random.Next(10,20);
@@ -24,6 +25,7 @@ namespace Logic
 
         public Ball()
         {
+            _mass = random.Next(10,20);
         }
 
         public float X
@@ -96,12 +98,17 @@ namespace Logic
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }
-        public void BallHit ()
+        public void BallHit(IList ballList)
         {
+            UpdatePostion();
             Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
-            if (Coordinates.Y +_radius< _radius)
+            foreach (Ball ball in ballList)
             {
-                Velocity *= -Vector2.UnitX;
+                if (this.Coordinates.X <= ball.Coordinates.X  && this.Coordinates.Y <= ball.Coordinates.Y)
+                {
+                    this.Velocity = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
+                    ball.Velocity = (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
+                }
             }
 
             // if (Coordinates.Y < _radius || Coordinates.Y > DataApi.HEIGHT)
