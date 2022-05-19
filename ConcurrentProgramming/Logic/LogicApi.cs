@@ -20,6 +20,7 @@ namespace Logic
         private IList _balls;
         private List<Task> _tasks = new List<Task>();
         private object _lock = new object();
+
         public LogicApi()
         {
             _data = DataAbstarctApi.CreateBallsData();
@@ -63,7 +64,26 @@ namespace Logic
             {
                 Ball ball = new Ball();
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
-                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(300, 310));
+
+                // ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                if (_balls.Count == 0)
+                {
+                    ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                }
+                else
+                {
+                    foreach (Ball bl in _balls)
+                    {
+                        do
+                        {
+                            ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                        } while (Vector2.Distance(ball.Coordinates, bl.Coordinates) > bl.Radius &&
+                                 Vector2.Distance(ball.Coordinates, bl.Coordinates)
+                                 - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) <= 0);
+                    }
+                }
+                
+
                 _balls.Add(ball);
             }
         }
@@ -75,7 +95,6 @@ namespace Logic
                 // ball.BallHit(_balls);
                 Task task = Task.Run(() =>
                     {
-                        
                         Thread.Sleep(1);
                         while (true)
                         {
@@ -88,7 +107,8 @@ namespace Logic
                             {
                                 break;
                             }
-                           lock(_lock)
+
+                            lock (_lock)
                             {
                                 DetectHits(ball);
                             }
@@ -108,7 +128,7 @@ namespace Logic
 
         public void DetectHits(Ball bl)
         {
-            bl.UpdatePostion();
+            UpdatePosition(bl);
             bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
 
             foreach (Ball ball in _balls)
@@ -116,6 +136,16 @@ namespace Logic
                 if (ball == bl)
                 {
                     continue;
+                }
+                
+                if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
+                {
+                    bl.VelocityX *= -1;
+                }
+
+                if (bl.Coordinates.Y < bl.Radius || bl.Coordinates.Y > DataApi.HEIGHT)
+                {
+                    bl.VelocityY *= -1;
                 }
 
                 if (Vector2.Distance(ball.Coordinates, bl.Coordinates) <= bl.Radius &&
@@ -129,6 +159,21 @@ namespace Logic
                     ball.Velocity = newVelocity1;
                     bl.Velocity = newVelocity2;
                 }
+            }
+        }
+
+        public void UpdatePosition(Ball bl)
+        {
+            bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
+
+            if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
+            {
+                bl.VelocityX *= -1;
+            }
+
+            if (bl.Coordinates.Y < bl.Radius || bl.Coordinates.Y > DataApi.HEIGHT)
+            {
+                bl.VelocityY *= -1;
             }
         }
     }

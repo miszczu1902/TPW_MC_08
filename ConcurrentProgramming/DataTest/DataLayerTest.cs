@@ -35,14 +35,14 @@ public class DataLayerTest
         Assert.AreEqual(7, ball.Velocity.Y);
     }
 
-    [Test]
-    public void TestUpdatePosition()
-    {
-        Ball ball = new Ball();
-        ball.Velocity = new Vector2(-3, 7);
-        ball.Coordinates = new Vector2(DataApi.WIDTH, DataApi.HEIGHT);
-        ball.UpdatePostion();
-        Assert.AreNotEqual(DataApi.WIDTH, ball.Velocity.X);
-        Assert.AreNotEqual(DataApi.HEIGHT, ball.Velocity.Y);
-    }
+    // [Test]
+    // public void TestUpdatePosition()
+    // {
+    //     Ball ball = new Ball();
+    //     ball.Velocity = new Vector2(-3, 7);
+    //     ball.Coordinates = new Vector2(DataApi.WIDTH, DataApi.HEIGHT);
+    //     ball.UpdatePostion();
+    //     Assert.AreNotEqual(DataApi.WIDTH, ball.Velocity.X);
+    //     Assert.AreNotEqual(DataApi.HEIGHT, ball.Velocity.Y);
+    // }
 }

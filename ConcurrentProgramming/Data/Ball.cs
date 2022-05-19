@@ -10,7 +10,7 @@ namespace Logic
     public class Ball : INotifyPropertyChanged
     {
         private double _radius = 25;
-        private int _speed = 10000;
+        private int _speed = 3000;
         public float _mass;
         private Vector2 _coordinates;
         private Vector2 _velocity;
@@ -58,7 +58,6 @@ namespace Logic
         {
              
             get => _coordinates;
-            // set => _coordinates = value;
             set
             {
                 _coordinates = value;
@@ -72,50 +71,25 @@ namespace Logic
             get => _velocity;
             set => _velocity = value;
         }
+        
+        public float VelocityX
+        {
+            get => _velocity.X;
+            set => _velocity.X = value;
+        }
+        
+        public float VelocityY
+        {
+            get => _velocity.Y;
+            set => _velocity.Y = value;
+        }
 
         public int Speed
         {
             get => _speed;
             set => _speed = value;
         }
-
-        public void UpdatePostion()
-        {
-            // Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
-            //
-            // if (Coordinates.X +_radius < margin )
-            // {
-            //     // Velocity *= -Vector2.UnitX;
-            //     _velocity.X *= -1;
-            // }
-            // if (Coordinates.X +_radius < margin )
-            // {
-            //     // Velocity *= -Vector2.UnitX;
-            //     // _velocity.X*=-1;
-            // }
-            //
-            // // if (Coordinates.Y < _radius || Coordinates.Y > DataApi.HEIGHT)
-            // // {
-            // //     // Velocity *= -Vector2.UnitY;
-            // //     Velocity *= -Vector2.UnitY;
-            // // }
-
-            
-            Coordinates += new Vector2(Velocity.X * _mass, Velocity.Y * _mass);
-            if (Coordinates.X < _radius || Coordinates.X > DataApi.WIDTH)
-            {
-                _velocity.X *= -1;
-            }
-            
-
-            if (Coordinates.Y < _radius  ||Coordinates.Y > DataApi.HEIGHT)
-            {
-                _velocity.Y *= -1;
-            }
-            RaisePropertyChanged(nameof(X));
-            RaisePropertyChanged(nameof(Y));
-        }
-       
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
