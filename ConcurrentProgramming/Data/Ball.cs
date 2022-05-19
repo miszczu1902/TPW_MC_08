@@ -30,11 +30,21 @@ namespace Logic
         public float X
         {
             get => _coordinates.X;
+            set
+            {
+                _coordinates.X = value;
+                RaisePropertyChanged(nameof(X));
+            }
         }
 
         public float Y
         {
             get => _coordinates.Y;
+            set
+            {
+                _coordinates.Y = value;
+                RaisePropertyChanged(nameof(Y));
+            }
         }
 
         public double Radius
@@ -48,13 +58,25 @@ namespace Logic
         {
              
             get => _coordinates;
-            set => _coordinates = value;
+            // set => _coordinates = value;
+            set
+            {
+                _coordinates = value;
+                RaisePropertyChanged(nameof(X));
+                RaisePropertyChanged(nameof(Y));
+            }
         }
 
         public Vector2 Velocity
         {
             get => _velocity;
             set => _velocity = value;
+        }
+
+        public int Speed
+        {
+            get => _speed;
+            set => _speed = value;
         }
 
         public void UpdatePostion()
@@ -82,52 +104,18 @@ namespace Logic
             Coordinates += new Vector2(Velocity.X * _mass, Velocity.Y * _mass);
             if (Coordinates.X < _radius || Coordinates.X > DataApi.WIDTH)
             {
-                // Velocity *= -Vector2.UnitX;
-                // _velocity.Y *= -1;
                 _velocity.X *= -1;
             }
             
 
             if (Coordinates.Y < _radius  ||Coordinates.Y > DataApi.HEIGHT)
             {
-                // Velocity *= -Vector2.UnitY;
-                // _velocity.X *= -1;
                 _velocity.Y *= -1;
             }
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }
-        public void BallHit(IList ballList)
-        {
-            UpdatePostion();
-            Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
-
-            
-            foreach (Ball ball in ballList)
-            {
-                if (Vector2.Distance(ball.Coordinates, this.Coordinates)<=_radius &&Vector2.Distance(ball.Coordinates, this.Coordinates)
-                    - Vector2.Distance(ball.Coordinates + ball.Velocity, this.Coordinates + this.Velocity) > 0)
-               {
-                   
-                    // this.Velocity = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
-                    // ball.Velocity = (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
-                    // Vector2 newVelocity2 = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
-                    // Vector2 newVelocity1= (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);                   
-                    Vector2 newVelocity2 = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
-                    Vector2 newVelocity1= (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
-                    ball.Velocity = newVelocity1;
-                    this.Velocity = newVelocity2;
-                }
-            }
-
-            // if (Coordinates.Y < _radius || Coordinates.Y > DataApi.HEIGHT)
-            // {
-            //     Velocity *= -Vector2.UnitY;
-            // }
-
-            RaisePropertyChanged(nameof(X));
-            RaisePropertyChanged(nameof(Y));
-        }
+       
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)

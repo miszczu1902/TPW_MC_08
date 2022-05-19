@@ -72,7 +72,7 @@ namespace Logic
         {
             foreach (Ball ball in _balls)
             {
-                ball.BallHit(_balls);
+                // ball.BallHit(_balls);
                 Task task = Task.Run(() =>
                     {
                         
@@ -90,7 +90,7 @@ namespace Logic
                             }
                            lock(_lock)
                             {
-                                ball.BallHit(_balls);
+                                DetectHits(ball);
                             }
                         }
                     }
@@ -104,6 +104,32 @@ namespace Logic
             _cancellationTokenSource.Cancel();
             _tasks.Clear();
             _balls.Clear();
+        }
+
+        public void DetectHits(Ball bl)
+        {
+            bl.UpdatePostion();
+            bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
+
+            foreach (Ball ball in _balls)
+            {
+                if (ball == bl)
+                {
+                    continue;
+                }
+
+                if (Vector2.Distance(ball.Coordinates, bl.Coordinates) <= bl.Radius &&
+                    Vector2.Distance(ball.Coordinates, bl.Coordinates)
+                    - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) > 0)
+                {
+                    Vector2 newVelocity2 = (bl.Velocity * (bl.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) /
+                                           (bl.Mass + ball.Mass);
+                    Vector2 newVelocity1 = (ball.Velocity * (ball.Mass - bl.Mass) + 2 * bl.Mass * bl.Velocity) /
+                                           (bl.Mass + ball.Mass);
+                    ball.Velocity = newVelocity1;
+                    bl.Velocity = newVelocity2;
+                }
+            }
         }
     }
 }
