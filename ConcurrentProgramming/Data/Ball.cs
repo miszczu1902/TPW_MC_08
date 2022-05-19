@@ -10,7 +10,7 @@ namespace Logic
     public class Ball : INotifyPropertyChanged
     {
         private double _radius = 25;
-        private int _speed = 3000;
+        private int _speed = 5000;
         public float _mass;
         private Vector2 _coordinates;
         private Vector2 _velocity;
@@ -95,6 +95,12 @@ namespace Logic
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override bool Equals(object obj)
+        {
+            Ball ball = (Ball) obj;
+            return _coordinates == ball.Coordinates;
         }
     }
 }

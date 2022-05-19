@@ -59,28 +59,46 @@ namespace Logic
             _cancellationToken = _cancellationTokenSource.Token;
 
             Random random = new Random();
-
+            int zmienna=0;
+            
             for (int i = 0; i < countBalls; i++)
             {
+                zmienna = 1;
                 Ball ball = new Ball();
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
-
                 // ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
-                if (_balls.Count == 0)
+                if (i==0)
                 {
                     ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 }
                 else
                 {
-                    foreach (Ball bl in _balls)
+                    bool restart;
+                    do
                     {
-                        do
+                        restart = false;
+                        foreach (Ball bl in _balls)
                         {
-                            ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
-                        } while (Vector2.Distance(ball.Coordinates, bl.Coordinates) > bl.Radius &&
-                                 Vector2.Distance(ball.Coordinates, bl.Coordinates)
-                                 - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) <= 0);
-                    }
+                            restart = false;
+                            if (bl.Equals(ball)) continue;
+                                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                                if (Vector2.Distance(ball.Coordinates, bl.Coordinates) <= 75 &&
+                                    Vector2.Distance(ball.Coordinates, bl.Coordinates)
+                                    - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) >
+                                    0)
+                                {
+                                    restart = true;
+                                   
+                                }
+
+                            if (restart)
+                            {
+                                break;
+                            } }
+                    } while (restart);
+
+
+
                 }
                 
 
