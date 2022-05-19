@@ -9,9 +9,8 @@ namespace Logic
 {
     public class Ball : INotifyPropertyChanged
     {
-        private int margin = 25;
         private double _radius = 25;
-        private int _speed = 5000;
+        private int _speed = 10000;
         public float _mass;
         private Vector2 _coordinates;
         private Vector2 _velocity;
@@ -20,12 +19,12 @@ namespace Logic
         public float Mass
         {
             get => _mass;
-            set => _mass = random.Next(10,20);
+            set => _mass = value;
         }
 
         public Ball()
         {
-            _mass = random.Next(10,20);
+            _mass = random.Next(500,2000);
         }
 
         public float X
@@ -80,7 +79,7 @@ namespace Logic
             // // }
 
             
-            Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
+            Coordinates += new Vector2(Velocity.X * _mass, Velocity.Y * _mass);
             if (Coordinates.X < _radius || Coordinates.X > DataApi.WIDTH)
             {
                 // Velocity *= -Vector2.UnitX;
@@ -102,12 +101,22 @@ namespace Logic
         {
             UpdatePostion();
             Coordinates += new Vector2(Velocity.X * _speed, Velocity.Y * _speed);
+
+            
             foreach (Ball ball in ballList)
             {
-                if (this.Coordinates.X <= ball.Coordinates.X  && this.Coordinates.Y <= ball.Coordinates.Y)
-                {
-                    this.Velocity = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
-                    ball.Velocity = (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
+                if (Vector2.Distance(ball.Coordinates, this.Coordinates)<=_radius &&Vector2.Distance(ball.Coordinates, this.Coordinates)
+                    - Vector2.Distance(ball.Coordinates + ball.Velocity, this.Coordinates + this.Velocity) > 0)
+               {
+                   
+                    // this.Velocity = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
+                    // ball.Velocity = (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
+                    // Vector2 newVelocity2 = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
+                    // Vector2 newVelocity1= (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);                   
+                    Vector2 newVelocity2 = (this.Velocity *  (this.Mass - ball.Mass) + 2 * ball.Mass * ball.Velocity) / (this.Mass + ball.Mass);
+                    Vector2 newVelocity1= (ball.Velocity *  (ball.Mass - this.Mass) + 2 * this.Mass * this.Velocity) / (this.Mass + ball.Mass);
+                    ball.Velocity = newVelocity1;
+                    this.Velocity = newVelocity2;
                 }
             }
 

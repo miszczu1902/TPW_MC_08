@@ -63,7 +63,7 @@ namespace Logic
             {
                 Ball ball = new Ball();
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
-                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(300, 310));
                 _balls.Add(ball);
             }
         }
@@ -72,8 +72,10 @@ namespace Logic
         {
             foreach (Ball ball in _balls)
             {
+                ball.BallHit(_balls);
                 Task task = Task.Run(() =>
                     {
+                        
                         Thread.Sleep(1);
                         while (true)
                         {
@@ -86,7 +88,7 @@ namespace Logic
                             {
                                 break;
                             }
-                            lock(_lock)
+                           lock(_lock)
                             {
                                 ball.BallHit(_balls);
                             }
