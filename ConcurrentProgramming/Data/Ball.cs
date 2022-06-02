@@ -25,7 +25,7 @@ namespace Logic
 
         public Ball()
         {
-            _mass = random.Next(500,2000);
+            _mass = random.Next(500, 2000);
         }
 
         public float X
@@ -75,13 +75,13 @@ namespace Logic
             get => _velocity;
             set => _velocity = value;
         }
-        
+
         public float VelocityX
         {
             get => _velocity.X;
             set => _velocity.X = value;
         }
-        
+
         public float VelocityY
         {
             get => _velocity.Y;
@@ -93,18 +93,12 @@ namespace Logic
             get => _speed;
             set => _speed = value;
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        // public override bool Equals(object obj)
-        // {
-        //     Ball ball = (Ball) obj;
-        //     return _coordinates == ball.Coordinates;
-        // }
     }
 }

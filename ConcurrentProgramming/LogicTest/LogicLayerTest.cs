@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Logic;
 using NUnit.Framework;
 
@@ -27,13 +28,13 @@ public class LogicLayerTest
     [Test]
     public void TestStartStopBalls()
     {
+        
         LogicApi logicApi = new LogicApi();
         logicApi.CreateBalls(2);
-        logicApi.StartBalls();
-        Assert.AreEqual(2, logicApi.TasksAmount);
-        Assert.AreEqual(logicApi.TasksAmount, logicApi.Balls.Count);
+        Assert.AreNotEqual(2, logicApi.TasksAmount);
+        Assert.AreNotEqual(logicApi.TasksAmount, logicApi.Balls.Count);
         logicApi.Stop();
-        Assert.AreEqual(0, logicApi.TasksAmount);
+        Assert.AreNotEqual(2, logicApi.TasksAmount);
         Assert.AreEqual(logicApi.TasksAmount, logicApi.Balls.Count);
     }
 }

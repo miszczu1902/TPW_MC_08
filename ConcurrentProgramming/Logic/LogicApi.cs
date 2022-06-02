@@ -66,7 +66,6 @@ namespace Logic
                 Ball ball = new Ball();
                 ball.Id = i + 1;
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
-                // ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 if (i == 0)
                 {
                     ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
@@ -106,7 +105,7 @@ namespace Logic
 
         public void StartBalls()
         {
-            _data.ClearFile();
+            _data.ClearFile(null);
             foreach (Ball ball in _balls)
             {
                 Task task = Task.Run(() =>
@@ -192,7 +191,7 @@ namespace Logic
                 {
                     bl.VelocityY *= -1;
                 }
-                _data.SaveDataToFile();
+                _data.SaveDataToFile(null);
             }
         }
     }

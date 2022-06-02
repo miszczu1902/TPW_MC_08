@@ -13,36 +13,55 @@ namespace Data
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
-        private static string path = Path.GetFullPath("dir")+"..\\..\\..\\..\\..\\..\\..\\Data\\BallDiagnostic";
+        private static string path = Path.GetFullPath("dir") + "..\\..\\..\\..\\..\\..\\..\\Data\\BallDiagnostic";
+
         public override ObservableCollection<Ball> _balls()
         {
             return new ObservableCollection<Ball>();
         }
-        
+
         public override string SaveBallData(Ball ball)
         {
             var opt = new JsonSerializerOptions() {WriteIndented = true};
             return JsonSerializer.Serialize<Ball>(ball, opt);
         }
 
-        public override void SaveDataToFile()
+        public override void SaveDataToFile(string dir)
         {
-   
-                foreach (Ball ball in BallsList)
+            foreach (Ball ball in BallsList)
+            {
+                if (dir == null)
                 {
-                    
-                    using (StreamWriter writer = new StreamWriter(path,true))
+                    using (StreamWriter writer = new StreamWriter(path, true))
                     {
                         writer.WriteLine(SaveBallData(ball));
                     }
                 }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(dir))
+                    {
+                        writer.WriteLine(SaveBallData(ball));
+                    }
+                }
+            }
         }
 
-        public override void ClearFile()
+        public override void ClearFile(string dir)
         {
-            using (StreamWriter writer = new StreamWriter(path))
+            if (dir == null)
             {
-                writer.WriteLine("");
+                using (StreamWriter writer = new StreamWriter(path))
+                {
+                    writer.WriteLine("");
+                }
+            }
+            else
+            {
+                using (StreamWriter writer = new StreamWriter(dir))
+                {
+                    writer.WriteLine("");
+                }
             }
         }
     }

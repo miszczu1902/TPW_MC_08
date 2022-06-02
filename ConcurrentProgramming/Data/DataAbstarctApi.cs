@@ -23,7 +23,7 @@ namespace Data
 
         public abstract string SaveBallData(Ball ball);
 
-        public abstract void SaveDataToFile();
-        public abstract void ClearFile();
+        public abstract void SaveDataToFile(string dir);
+        public abstract void ClearFile(string dir);
     }
 }

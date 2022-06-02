@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Numerics;
 using Data;
 using Logic;
@@ -35,5 +37,15 @@ public class DataLayerTest
         Assert.AreEqual(7, ball.Velocity.Y);
     }
 
-
+    [Test]
+    public void TestSavingToFile()
+    {
+        Ball ball = new Ball();
+        ball.Velocity = new Vector2(-3, 7);
+        DataAbstarctApi _data = DataAbstarctApi.CreateBallsData();
+        _data.BallsList = new ObservableCollection<Ball>();
+        _data.BallsList.Add(ball);
+        _data.SaveDataToFile(Path.GetFullPath("BallDiagnosticTest"));
+        Assert.True(File.Exists(Path.GetFullPath("BallDiagnosticTest")));
+    }
 }
