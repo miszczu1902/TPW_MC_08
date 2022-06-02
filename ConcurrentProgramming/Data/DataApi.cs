@@ -13,8 +13,7 @@ namespace Data
     {
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
-        private object _lock = new object();
-
+        private static string path = Path.GetFullPath("dir")+"..\\..\\..\\..\\..\\..\\..\\Data\\BallDiagnostic";
         public override ObservableCollection<Ball> _balls()
         {
             return new ObservableCollection<Ball>();
@@ -28,19 +27,22 @@ namespace Data
 
         public override void SaveDataToFile()
         {
-            lock (_lock)
-            {
+   
                 foreach (Ball ball in BallsList)
                 {
-                    using (StreamWriter writer = new StreamWriter(@"D:\politechnika\IV sem\TPW_MC_08\ConcurrentProgramming\Data\xd", true))
+                    
+                    using (StreamWriter writer = new StreamWriter(path,true))
                     {
                         writer.WriteLine(SaveBallData(ball));
                     }
-                    // Trace.WriteLine(Path.GetFullPath("Data"));
-                    // File.WriteAllText(Path.GetFullPath("Data") + @"xd", SaveBallData(ball));
-                    // string xd = SaveBallData(ball);
-                    // Trace.WriteLine(SaveBallData(ball));
-                }   
+                }
+        }
+
+        public override void ClearFile()
+        {
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.WriteLine("");
             }
         }
     }

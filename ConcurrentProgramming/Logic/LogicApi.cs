@@ -106,6 +106,7 @@ namespace Logic
 
         public void StartBalls()
         {
+            _data.ClearFile();
             foreach (Ball ball in _balls)
             {
                 Task task = Task.Run(() =>

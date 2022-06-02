@@ -24,5 +24,6 @@ namespace Data
         public abstract string SaveBallData(Ball ball);
 
         public abstract void SaveDataToFile();
+        public abstract void ClearFile();
     }
 }
