@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,6 +64,7 @@ namespace Logic
             for (int i = 0; i < countBalls; i++)
             {
                 Ball ball = new Ball();
+                ball.Id = i + 1;
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
                 // ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 if (i == 0)
@@ -96,16 +98,16 @@ namespace Logic
                     } while (restart);
                 }
 
-
                 _balls.Add(ball);
             }
+
+            _data.BallsList = _balls;
         }
 
         public void StartBalls()
         {
             foreach (Ball ball in _balls)
             {
-                // ball.BallHit(_balls);
                 Task task = Task.Run(() =>
                     {
                         Thread.Sleep(1);
@@ -121,9 +123,7 @@ namespace Logic
                                 break;
                             }
 
-                           
-                                DetectHits(ball);
-                            
+                            DetectHits(ball);
                         }
                     }
                 );
@@ -141,9 +141,8 @@ namespace Logic
         public void DetectHits(Ball bl)
         {
             UpdatePosition(bl);
-            
-                bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
-            
+
+            bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
 
             foreach (Ball ball in _balls)
             {
@@ -170,11 +169,9 @@ namespace Logic
                                            (bl.Mass + ball.Mass);
                     Vector2 newVelocity1 = (ball.Velocity * (ball.Mass - bl.Mass) + 2 * bl.Mass * bl.Velocity) /
                                            (bl.Mass + ball.Mass);
-                    lock (_lock)
-                    {
-                        ball.Velocity = newVelocity1;
-                        bl.Velocity = newVelocity2;
-                    }
+                    
+                    ball.Velocity = newVelocity1;
+                    bl.Velocity = newVelocity2;
                 }
             }
         }
@@ -182,15 +179,19 @@ namespace Logic
         public void UpdatePosition(Ball bl)
         {
             bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
-
-            if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
+            
+            lock (_lock)
             {
-                bl.VelocityX *= -1;
-            }
+                if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
+                {
+                    bl.VelocityX *= -1;
+                }
 
-            if (bl.Coordinates.Y < bl.Radius || bl.Coordinates.Y > DataApi.HEIGHT)
-            {
-                bl.VelocityY *= -1;
+                if (bl.Coordinates.Y < bl.Radius || bl.Coordinates.Y > DataApi.HEIGHT)
+                {
+                    bl.VelocityY *= -1;
+                }
+                _data.SaveDataToFile();
             }
         }
     }

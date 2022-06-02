@@ -15,6 +15,7 @@ namespace Logic
         private Vector2 _coordinates;
         private Vector2 _velocity;
         private Random random = new Random();
+        private int id;
 
         public float Mass
         {
@@ -51,12 +52,15 @@ namespace Logic
         {
             get => _radius;
         }
-       
 
+        public int Id
+        {
+            get => id;
+            set => id = value;
+        }
 
         public Vector2 Coordinates
         {
-             
             get => _coordinates;
             set
             {
