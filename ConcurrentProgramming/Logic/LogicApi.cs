@@ -59,15 +59,13 @@ namespace Logic
             _cancellationToken = _cancellationTokenSource.Token;
 
             Random random = new Random();
-            int zmienna=0;
-            
+
             for (int i = 0; i < countBalls; i++)
             {
-                zmienna = 1;
                 Ball ball = new Ball();
                 ball.Velocity = new Vector2((float) 0.00045, (float) 0.00045);
                 // ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
-                if (i==0)
+                if (i == 0)
                 {
                     ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
                 }
@@ -81,26 +79,23 @@ namespace Logic
                         {
                             restart = false;
                             if (bl.Equals(ball)) continue;
-                                ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
-                                if (Vector2.Distance(ball.Coordinates, bl.Coordinates) <= 75 &&
-                                    Vector2.Distance(ball.Coordinates, bl.Coordinates)
-                                    - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) >
-                                    0)
-                                {
-                                    restart = true;
-                                   
-                                }
+                            ball.Coordinates = new Vector2(random.Next(50, 680), random.Next(50, 310));
+                            if (Vector2.Distance(ball.Coordinates, bl.Coordinates) <= 75 &&
+                                Vector2.Distance(ball.Coordinates, bl.Coordinates)
+                                - Vector2.Distance(ball.Coordinates + ball.Velocity, bl.Coordinates + bl.Velocity) >
+                                0)
+                            {
+                                restart = true;
+                            }
 
                             if (restart)
                             {
                                 break;
-                            } }
+                            }
+                        }
                     } while (restart);
-
-
-
                 }
-                
+
 
                 _balls.Add(ball);
             }
@@ -126,10 +121,9 @@ namespace Logic
                                 break;
                             }
 
-                            lock (_lock)
-                            {
+                           
                                 DetectHits(ball);
-                            }
+                            
                         }
                     }
                 );
@@ -147,7 +141,9 @@ namespace Logic
         public void DetectHits(Ball bl)
         {
             UpdatePosition(bl);
-            bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
+            
+                bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
+            
 
             foreach (Ball ball in _balls)
             {
@@ -155,7 +151,7 @@ namespace Logic
                 {
                     continue;
                 }
-                
+
                 if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
                 {
                     bl.VelocityX *= -1;
@@ -174,8 +170,11 @@ namespace Logic
                                            (bl.Mass + ball.Mass);
                     Vector2 newVelocity1 = (ball.Velocity * (ball.Mass - bl.Mass) + 2 * bl.Mass * bl.Velocity) /
                                            (bl.Mass + ball.Mass);
-                    ball.Velocity = newVelocity1;
-                    bl.Velocity = newVelocity2;
+                    lock (_lock)
+                    {
+                        ball.Velocity = newVelocity1;
+                        bl.Velocity = newVelocity2;
+                    }
                 }
             }
         }

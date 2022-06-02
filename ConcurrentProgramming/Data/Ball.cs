@@ -97,10 +97,10 @@ namespace Logic
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public override bool Equals(object obj)
-        {
-            Ball ball = (Ball) obj;
-            return _coordinates == ball.Coordinates;
-        }
+        // public override bool Equals(object obj)
+        // {
+        //     Ball ball = (Ball) obj;
+        //     return _coordinates == ball.Coordinates;
+        // }
     }
 }
