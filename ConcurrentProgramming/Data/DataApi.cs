@@ -15,6 +15,7 @@ namespace Data
         public static int HEIGHT = 360;
         private static string path = Path.GetFullPath("dir") + "..\\..\\..\\..\\..\\..\\..\\Data\\BallDiagnostic";
         public static object _locker = new object();
+
         public override ObservableCollection<Ball> _balls()
         {
             return new ObservableCollection<Ball>();
@@ -28,9 +29,9 @@ namespace Data
 
         public override void SaveDataToFile(string dir)
         {
-            lock (_locker)
+            foreach (Ball ball in BallsList)
             {
-                foreach (Ball ball in BallsList)
+                lock (_locker)
                 {
                     if (dir == null)
                     {
@@ -46,7 +47,7 @@ namespace Data
                             writer.WriteLine(SaveBallData(ball));
                         }
                     }
-                } 
+                }
             }
         }
 
