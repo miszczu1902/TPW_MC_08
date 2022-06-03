@@ -180,7 +180,7 @@ namespace Logic
         {
             bl.Coordinates += new Vector2(bl.Velocity.X * bl.Speed, bl.Velocity.Y * bl.Speed);
             
-            lock (_lock)
+            lock (_lock) lock (_data._locker)
             {
                 if (bl.Coordinates.X < bl.Radius || bl.Coordinates.X > DataApi.WIDTH)
                 {

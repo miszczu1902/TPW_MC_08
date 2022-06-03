@@ -14,7 +14,7 @@ namespace Data
         public static int WIDTH = 720;
         public static int HEIGHT = 360;
         private static string path = Path.GetFullPath("dir") + "..\\..\\..\\..\\..\\..\\..\\Data\\BallDiagnostic";
-
+        public static object _locker = new object();
         public override ObservableCollection<Ball> _balls()
         {
             return new ObservableCollection<Ball>();
@@ -28,22 +28,25 @@ namespace Data
 
         public override void SaveDataToFile(string dir)
         {
-            foreach (Ball ball in BallsList)
+            lock (_locker)
             {
-                if (dir == null)
+                foreach (Ball ball in BallsList)
                 {
-                    using (StreamWriter writer = new StreamWriter(path, true))
+                    if (dir == null)
                     {
-                        writer.WriteLine(SaveBallData(ball));
+                        using (StreamWriter writer = new StreamWriter(path, true))
+                        {
+                            writer.WriteLine(SaveBallData(ball));
+                        }
                     }
-                }
-                else
-                {
-                    using (StreamWriter writer = new StreamWriter(dir))
+                    else
                     {
-                        writer.WriteLine(SaveBallData(ball));
+                        using (StreamWriter writer = new StreamWriter(dir))
+                        {
+                            writer.WriteLine(SaveBallData(ball));
+                        }
                     }
-                }
+                } 
             }
         }
 

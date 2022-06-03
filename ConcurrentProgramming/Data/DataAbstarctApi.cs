@@ -8,6 +8,7 @@ namespace Data
     public abstract class DataAbstarctApi
     {
         private IList _ballsList;
+        public object _locker = new object();
         public static DataAbstarctApi CreateBallsData()
         {
             return new DataApi();
